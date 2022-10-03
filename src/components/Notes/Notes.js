@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../utils/supabaseClient";
+import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
 
 const Notes = () => {
@@ -27,6 +28,7 @@ const Notes = () => {
 
   return (
     <div>
+      <AddNote />
       {notes.map((note) => (
         <NoteItem key={note.id} note={note} deleteHandler={deleteHandler} />
       ))}
