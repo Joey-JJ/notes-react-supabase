@@ -31,12 +31,14 @@ const AddNote = () => {
         id="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required
       />
       <label htmlFor="contents">Contents</label>
       <textarea
         id="contents"
         value={contents}
         onChange={(e) => setContents(e.target.value)}
+        required
       ></textarea>
       <button type="submit">Create note</button>
     </form>
