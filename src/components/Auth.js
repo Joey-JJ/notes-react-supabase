@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,11 +24,15 @@ const Auth = () => {
   };
 
   return (
-    <div>
-      <h1>Please enter your e-mail address to sign in!</h1>
+    <Card sx={{ minWidth: 275 }}>
+      <Typography variant="h5" component="div">
+        Please enter your e-mail address to sign in!
+      </Typography>
       <form onSubmit={submitHandler}>
         <label htmlFor="email">E-mail address</label>
-        <input
+        <TextField
+          variant="outlined"
+          label="email"
           id="email"
           type="email"
           placeholder="Enter here..."
@@ -31,11 +40,11 @@ const Auth = () => {
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
         />
-        <button type="submit" disabled={loading}>
+        <Button variant="outlined" type="submit" disabled={loading}>
           Sign in
-        </button>
+        </Button>
       </form>
-    </div>
+    </Card>
   );
 };
 
