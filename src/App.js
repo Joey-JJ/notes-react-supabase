@@ -1,30 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "./utils/supabaseClient";
 import { sessionContext } from "./utils/sessionContext";
 import Auth from "./components/Auth";
 import Notes from "./components/Notes";
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [session, setSession] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchSession = async () => {
-  //     const { data, error } = await supabase.auth.getSession();
+  useEffect(() => {
+    let mounted = true;
 
-  //     if (error) throw error;
+    const fetchSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-  //     setSession(data);
+      if (mounted) {
+        if (session) {
+          setSession(session);
+        }
 
-  //     supabase.auth.onAuthStateChange((_event, session) => {
-  //       setSession(session);
-  //     });
-  //   };
-  //   console.log("session", session);
-  //   fetchSession();
-  // }, []);
+        setIsLoading(false);
+      }
+    };
+
+    fetchSession();
+
+    const { subscription } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
+
+    return () => {
+      mounted = false;
+      subscription?.unsubscribe();
+    };
+  }, []);
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
-    <sessionContext.Provider value={session}>
+    <sessionContext.Provider value={{ session, setSession }}>
       <div className="App">{session ? <Notes /> : <Auth />}</div>
     </sessionContext.Provider>
   );
