@@ -11,13 +11,27 @@ const Notes = () => {
 
       if (error) throw error;
 
-      setNotes(data.map((note) => <NoteItem key={note.id} note={note} />));
+      setNotes(data);
     };
 
     fetchNotes();
-  }, []);
+  }, [notes]);
 
-  return <div>{notes}</div>;
+  const deleteHandler = async (id) => {
+    const { error } = await supabase.from("notes").delete().match({ id: id });
+
+    if (error) throw error;
+
+    setNotes((prevState) => prevState.filter((note) => note.id !== id));
+  };
+
+  return (
+    <div>
+      {notes.map((note) => (
+        <NoteItem key={note.id} note={note} deleteHandler={deleteHandler} />
+      ))}
+    </div>
+  );
 };
 
 export default Notes;

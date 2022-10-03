@@ -9,9 +9,12 @@ const Navbar = () => {
     <nav style={{ display: "flex", justifyContent: "space-between" }}>
       <h1>Notes app</h1>
       {session && (
-        <button onClick={async () => await supabase.auth.signOut()}>
-          Sign out
-        </button>
+        <div>
+          <div>{session.user.email}</div>
+          <button onClick={async () => await supabase.auth.signOut()}>
+            Sign out
+          </button>
+        </div>
       )}
     </nav>
   );
