@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "./utils/supabaseClient";
 import { sessionContext } from "./utils/sessionContext";
 import Auth from "./components/Auth";
-import Notes from "./components/Notes";
+import Notes from "./components/Notes/Notes";
+import Navbar from "./components/UI/Navbar";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <sessionContext.Provider value={{ session, setSession }}>
+      <Navbar />
       <div className="App">{session ? <Notes /> : <Auth />}</div>
     </sessionContext.Provider>
   );
