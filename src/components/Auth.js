@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
+import { Container, Typography, TextField, Button } from "@mui/material";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -24,27 +22,53 @@ const Auth = () => {
   };
 
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <Typography variant="h5" component="div">
+    <Container
+      maxWidth={"sm"}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "2rem",
+        marginBlock: "14em",
+      }}
+    >
+      <Typography variant="h4" component="h1">
         Please enter your e-mail address to sign in!
       </Typography>
-      <form onSubmit={submitHandler}>
-        <label htmlFor="email">E-mail address</label>
+      <form
+        onSubmit={submitHandler}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+        }}
+      >
+        <label htmlFor="email" style={{ display: "none" }}>
+          E-mail address
+        </label>
         <TextField
           variant="outlined"
           label="email"
           id="email"
-          type="email"
+          required
+          type="E-mail"
           placeholder="Enter here..."
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
         />
-        <Button variant="outlined" type="submit" disabled={loading}>
+        <Button
+          variant="outlined"
+          type="submit"
+          disabled={loading}
+          size="large"
+        >
           Sign in
         </Button>
       </form>
-    </Card>
+    </Container>
   );
 };
 
