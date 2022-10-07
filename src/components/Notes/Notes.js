@@ -3,6 +3,8 @@ import { supabase } from "../../utils/supabaseClient";
 import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
 
+import { Container, Grid } from "@mui/material";
+
 const Notes = () => {
   const [notes, setNotes] = useState([]);
 
@@ -27,12 +29,22 @@ const Notes = () => {
   };
 
   return (
-    <div>
+    <main>
       <AddNote />
-      {notes.map((note) => (
-        <NoteItem key={note.id} note={note} deleteHandler={deleteHandler} />
-      ))}
-    </div>
+      <Container maxWidth="md">
+        <Grid container spacing={4}>
+          {notes.map((note) => (
+            <Grid item key={note.id} xs={12} sm={6} md={4}>
+              <NoteItem
+                key={note.id}
+                note={note}
+                deleteHandler={deleteHandler}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </main>
   );
 };
 
