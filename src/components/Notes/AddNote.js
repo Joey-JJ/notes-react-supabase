@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import { sessionContext } from "../../utils/sessionContext";
 
-import { Container, TextField, Button, Card } from "@mui/material";
+import { Container, TextField, Button } from "@mui/material";
 
 const AddNote = () => {
   const { session } = useContext(sessionContext);
@@ -27,7 +27,7 @@ const AddNote = () => {
   };
 
   return (
-    <Container maxWidth="lg" align="center">
+    <Container maxWidth="lg" align="center" sx={{ mb: "2rem" }}>
       <form
         onSubmit={submitHandler}
         style={{
