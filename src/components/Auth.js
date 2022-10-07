@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
-import { Container, Typography, TextField, Button } from "@mui/material";
+import { Container, Typography, TextField, Button, Paper } from "@mui/material";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -30,44 +30,50 @@ const Auth = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: "2rem",
-        marginBlock: "14em",
+        marginBlock: "10em",
       }}
     >
-      <Typography variant="h4" component="h1">
-        Please enter your e-mail address to sign in!
-      </Typography>
-      <form
-        onSubmit={submitHandler}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "1rem",
-        }}
+      <Paper
+        variant="outlined"
+        elevation={6}
+        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
-        <label htmlFor="email" style={{ display: "none" }}>
-          E-mail address
-        </label>
-        <TextField
-          variant="outlined"
-          label="email"
-          id="email"
-          required
-          type="E-mail"
-          placeholder="Enter here..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={loading}
-        />
-        <Button
-          variant="outlined"
-          type="submit"
-          disabled={loading}
-          size="large"
+        <Typography variant="h4" component="h1">
+          Please enter your e-mail address to sign in!
+        </Typography>
+        <form
+          onSubmit={submitHandler}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1rem",
+          }}
         >
-          Sign in
-        </Button>
-      </form>
+          <label htmlFor="email" style={{ display: "none" }}>
+            E-mail address
+          </label>
+          <TextField
+            variant="outlined"
+            label="email"
+            id="email"
+            required
+            type="E-mail"
+            placeholder="Enter here..."
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+          />
+          <Button
+            variant="outlined"
+            type="submit"
+            disabled={loading}
+            size="large"
+          >
+            Sign in
+          </Button>
+        </form>
+      </Paper>
     </Container>
   );
 };
