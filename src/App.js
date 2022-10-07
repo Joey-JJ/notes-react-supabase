@@ -4,6 +4,7 @@ import { sessionContext } from "./utils/sessionContext";
 import Auth from "./components/Auth";
 import Notes from "./components/Notes/Notes";
 import Navbar from "./components/UI/Navbar";
+import { CssBaseline } from "@mui/material";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +45,7 @@ const App = () => {
 
   return (
     <sessionContext.Provider value={{ session, setSession }}>
+      <CssBaseline />
       <Navbar />
       <div className="App">{session ? <Notes /> : <Auth />}</div>
     </sessionContext.Provider>

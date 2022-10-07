@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import { sessionContext } from "../../utils/sessionContext";
 
+import { Container, TextField, Button } from "@mui/material";
+
 const AddNote = () => {
   const { session } = useContext(sessionContext);
   const [title, setTitle] = useState("");
@@ -25,23 +27,39 @@ const AddNote = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="title">Title</label>
-      <input
-        id="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <label htmlFor="contents">Contents</label>
-      <textarea
-        id="contents"
-        value={contents}
-        onChange={(e) => setContents(e.target.value)}
-        required
-      ></textarea>
-      <button type="submit">Create note</button>
-    </form>
+    <Container maxWidth="lg" align="center" sx={{ mb: "2rem" }}>
+      <form
+        onSubmit={submitHandler}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+          maxWidth: "25em",
+        }}
+      >
+        <TextField
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          size="small"
+          label="Title"
+        />
+
+        <TextField
+          id="contents"
+          value={contents}
+          onChange={(e) => setContents(e.target.value)}
+          required
+          multiline
+          size="small"
+          label="Contents"
+        />
+        <Button type="submit" variant="outlined">
+          Create note
+        </Button>
+      </form>
+    </Container>
   );
 };
 

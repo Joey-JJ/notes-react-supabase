@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
 
+import {
+  Card,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+  CardContent,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Cancel";
+
 const NoteItem = ({ note, deleteHandler }) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(note.title);
@@ -19,29 +31,61 @@ const NoteItem = ({ note, deleteHandler }) => {
   };
 
   return (
-    <div>
-      {!editing && (
-        <>
-          <h3>{note.title}</h3>
-          <p>{note.contents}</p>
-        </>
-      )}
+    <Card
+      align="center"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
 
-      {editing && (
-        <form onSubmit={submitHandler}>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
-          <textarea onChange={(e) => setContents(e.target.value)}>
-            {contents}
-          </textarea>
-          <button type="submit">Save</button>
-        </form>
-      )}
+        padding: "1rem",
+      }}
+    >
+      <CardContent>
+        {!editing && (
+          <>
+            <Typography variant="h6">{note.title}</Typography>
+            <Typography variant="body1">{note.contents}</Typography>
+          </>
+        )}
 
-      <button onClick={() => deleteHandler(note.id)}>Delete</button>
-      <button onClick={() => setEditing((prevState) => !prevState)}>
-        {editing ? "Cancel" : "Edit"}
-      </button>
-    </div>
+        {editing && (
+          <form
+            onSubmit={submitHandler}
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
+            <TextField
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              size="small"
+              variant="standard"
+              label="title"
+            />
+            <TextField
+              onChange={(e) => setContents(e.target.value)}
+              value={contents}
+              size="small"
+              variant="standard"
+              label="contents"
+            />
+            <Button type="submit">Save</Button>
+          </form>
+        )}
+
+        <div>
+          <IconButton onClick={() => deleteHandler(note.id)}>
+            <DeleteIcon color="primary" variant="filled" />
+          </IconButton>
+          <IconButton onClick={() => setEditing((prevState) => !prevState)}>
+            {editing ? (
+              <CancelIcon color="primary" variant="filled" />
+            ) : (
+              <EditIcon color="primary" variant="filled" />
+            )}
+          </IconButton>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
