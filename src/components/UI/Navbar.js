@@ -58,7 +58,6 @@ const ResponsiveAppBar = () => {
                   onClick={handleOpenUserMenu}
                   color="warning"
                   size="small"
-                  variant="contained"
                 >
                   {session.user.email}
                 </Button>
