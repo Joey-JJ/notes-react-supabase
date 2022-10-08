@@ -38,7 +38,7 @@ const Auth = () => {
         elevation={6}
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
-        <Typography variant="h4" component="h1">
+        <Typography variant="h4" component="h1" mb={6}>
           Please enter your e-mail address to sign in!
         </Typography>
         <form

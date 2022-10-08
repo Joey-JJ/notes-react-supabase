@@ -5,6 +5,13 @@ import Auth from "./components/Auth";
 import Notes from "./components/Notes/Notes";
 import Navbar from "./components/UI/Navbar";
 import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,9 +52,11 @@ const App = () => {
 
   return (
     <sessionContext.Provider value={{ session, setSession }}>
-      <CssBaseline />
-      <Navbar />
-      <div className="App">{session ? <Notes /> : <Auth />}</div>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Navbar />
+        <div className="App">{session ? <Notes /> : <Auth />}</div>
+      </ThemeProvider>
     </sessionContext.Provider>
   );
 };

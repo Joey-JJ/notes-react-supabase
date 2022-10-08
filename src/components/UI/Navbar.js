@@ -56,7 +56,7 @@ const ResponsiveAppBar = () => {
               <Tooltip title="Open settings">
                 <Button
                   onClick={handleOpenUserMenu}
-                  color="warning"
+                  color="primary"
                   size="small"
                 >
                   {session.user.email}
